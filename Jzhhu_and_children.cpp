@@ -16,22 +16,20 @@ void fast_io()
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    ll sum = 0;
+    ll n, m;
+    cin >> n >> m;
+    double x;
+    ll maxi = 0, ans = n;
     fl(0, n)
     {
-        ll x;
         cin >> x;
-        sum += x;
+        if (ceil(x / m) >= maxi)
+        {
+            maxi = ceil(x / m);
+            ans = i + 1;
+        }
     }
-    ll count = 0;
-    fl(1, 6)
-    {
-        if ((sum + i) % (n + 1) != 1)
-            count++;
-    }
-    cout << count;
+    cout << ans;
 }
 
 int main()
