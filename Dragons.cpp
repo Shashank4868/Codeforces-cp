@@ -21,13 +21,26 @@ void fast_io()
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    cout << n << " ";
-    fl(1, n)
+    ll s, n;
+    cin >> s >> n;
+    vector<pair<int, int>> v;
+    ll x, y;
+    fl(0, n)
     {
-        cout << i << " ";
+        cin >> x >> y;
+        v.pb({x, y});
     }
+    sort(v.begin(), v.end());
+    fl(0, n)
+    {
+        if (v[i].first >= s)
+        {
+            cout << "NO";
+            return;
+        }
+        s += v[i].second;
+    }
+    cout << "YES";
 }
 
 int main()

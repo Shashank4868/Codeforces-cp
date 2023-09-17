@@ -23,10 +23,22 @@ void solve()
 {
     ll n;
     cin >> n;
-    cout << n << " ";
-    fl(1, n)
+    for (int row = -n; row <= n; ++row)
     {
-        cout << i << " ";
+        int top = n - abs(row);
+        for (int i = 0; i < abs(row); ++i)
+        {
+            cout << "  ";
+        }
+        for (int i = 0; i < top; ++i)
+        {
+            cout << i << " ";
+        }
+        for (int i = top; i > 0; --i)
+        {
+            cout << i << " ";
+        }
+        cout << 0 << endl;
     }
 }
 
