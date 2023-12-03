@@ -9,7 +9,7 @@ using namespace std;
 #define prq priority_queue
 #define pb push_back
 #define sortv(v) sort(v.begin(), v.end())
-#define sortrev(v) sort(v.begin(), v.end(), greater<ll>)
+#define sortrev(v) sort(v.begin(), v.end(), greater<pp>())
 #define fl(i, n) for (ll i = 0; i < n; i++)
 
 const ll mod = 1e9 + 7;
@@ -29,41 +29,46 @@ void fileInput()
     freopen("output.txt", "w", stdout);
 }
 
-vec d[2010];
-vvec dp(2001, vec(2001, -1));
-
-ll f(ll n, ll k)
-{
-    if (k == 1)
-        return 1;
-    if (dp[n][k] != -1)
-        return dp[n][k];
-    ll ans = 0;
-    for (int i = 0; i < d[n].size(); i++)
-    {
-        ans += f(d[n][i], k - 1);
-        ans %= mod;
-    }
-    return dp[n][k] = ans;
-}
-
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    for (ll i = 1; i < 2010; i++)
+    ll n, m;
+    cin >> n >> m;
+    vector<pp> v;
+    vec t;
+    t.pb(0);
+    fl(i, n)
     {
-        for (ll j = i; j < 2010; j += i)
-        {
-            d[j].pb(i);
-        }
+        ll x;
+        cin >> x;
+        v.pb({x, i + 1});
+        t.pb(x);
     }
+    sortrev(v);
+    ump<ll, vec> h;
+    fl(i, m)
+    {
+        ll a, b;
+        cin >> a >> b;
+        h[a].pb(b);
+        h[b].pb(a);
+    }
+    uset<ll> deleted;
     ll ans = 0;
-    for (ll i = 1; i <= n; i++)
+    for (auto it : v)
     {
-        ans += f(i, k);
-        ans %= mod;
+        deleted.insert(it.second);
+        // cout << it.second << " ";
+        ll sum = 0;
+        for (auto it : h[it.second])
+        {
+            if (deleted.find(it) == deleted.end())
+            {
+                sum += t[it];
+            }
+        }
+        ans += sum;
     }
+    // cout << endl;
     cout << ans << endl;
 }
 
